@@ -1,135 +1,233 @@
 ---
-import Arrow from '../images/message-arrow.png';
+import Arrow from "../images/message-arrow.png";
+const availableInterests = [
+  "UI/UX design",
+  "Web design",
+  "Graphic design",
+  "Design system",
+  "Other",
+];
 ---
 
-
-
 <div class="container">
+  <p class="text">I'm interested in...</p>
 
- <p class="text">I'm interested in...</p>
+  <!-- Tags -->
 
- <!-- Tags -->
+  <div class="tags">
+    {
+      availableInterests.map((interest, index) => {
+        return (
+          <div class="tag">
+            <p>{interest}</p>
+          </div>
+        );
+      })
+    }
+  </div>
 
- <div class="tags">
-  <div class="select-tag tag"><p>UI/UX design</p></div>
-  <div class="tag"><p>Web design</p></div>
-  <div class="tag"><p>Graphic design</p></div>
-  <div class="tag"><p>Design system</p></div>
-  <div class="tag"><p>Other</p></div>
- </div>
+  <!-- Form -->
+  <form action="#">
+    <div class="form">
+      <div>
+        <input type="text" id="name" />
+      </div>
+      <div>
+        <input type="email" id="email" />
+      </div>
+      <div>
+        <input type="text" id="message" />
+      </div>
+    </div>
 
- <!-- Form -->
-
- <form action="/">
-  <div class="form">
-  <div>
-  <input type="text" id="name" value="Your name">
- </div>
-  <div>
-  <input type="email" id="email" value="Your email">
- </div>
-  <div>
-  <input type="text" id="message" value="Your message">
- </div>
- </div>
-
- <button type="submit"><img src={Arrow} alt="">Send message</button>
- </form>
-
+    <button id="submit" type="submit"
+      ><img src={Arrow} alt="" />Send message</button
+    >
+  </form>
 </div>
 
+<script>
+  import axios from "axios";
+  const availableInterests = [
+    "UI/UX design",
+    "Web design",
+    "Graphic design",
+    "Design system",
+    "Other",
+  ];
+  let selectedIntersts = [];
+  const isSelected = (index) => {
+    return selectedIntersts.includes(index);
+  };
+  const buttons = document.querySelectorAll("div.tag");
+
+  const interestValues = (indexes) => {
+    const values = [];
+    for (const index in indexes) {
+      values.push(availableInterests[index]);
+    }
+    return values.join(", ");
+  };
+  buttons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+      if (!isSelected(index)) {
+        button.classList.add("select-tag");
+        selectedIntersts.push(index);
+      } else {
+        button.classList.remove("select-tag");
+        selectedIntersts = selectedIntersts.filter(
+          (interest) => interest !== index
+        );
+      }
+    });
+  });
+
+  const submitButton = document.getElementById("submit");
+  const nameInput = document.getElementById("name");
+  const emailInput = document.getElementById("email");
+  const messageInput = document.getElementById("message");
+  submitButton.addEventListener("click", async (event) => {
+    event.preventDefault();
+    const data = {
+      rows: [
+        {
+          cells: [
+            {
+              column: "Name",
+              value: nameInput.getAttribute("value"),
+            },
+            {
+              column: "Email",
+              value: emailInput.getAttribute("value"),
+            },
+            {
+              column: "Message",
+              value: messageInput.getAttribute("value"),
+            },
+            // {
+            //   column: "Interests",
+            //   value: interestValues(selectedIntersts),
+            // },
+            {
+              column: "Date",
+              value: new Date(),
+            },
+          ],
+        },
+        // {
+        //   Name: nameInput.getAttribute("value"),
+        //   Email: emailInput.getAttribute("value"),
+        //   Message: messageInput.getAttribute("value"),
+        //   Interests: interestValues(selectedIntersts),
+        //   Date: new Date(),
+        // },
+      ],
+    };
+    try {
+      console.log(data);
+      // await axios.post(
+      //   "https://coda.io/apis/v1/docs/QE6Xt6x-Xk/tables/grid-CML1yaM2jb/rows",
+      //   data,
+      //   {
+      //     headers: {
+      //       Authorization: "Bearer d2c437b6-004e-42cd-b378-309abb1ce324",
+      //     },
+      //   }
+      // );
+    } catch (error) {
+      console.log(error);
+    }
+  });
+</script>
 
 <style>
- .container {
-  max-width: 700px;
-  background-color: #EEEEEE;
-  padding: 48px;
-  border-radius: 24px;
- }
+  .container {
+    max-width: 700px;
+    background-color: #eeeeee;
+    padding: 48px;
+    border-radius: 24px;
+  }
 
- .text {
-  color: #2E0249 ;
-  margin-bottom: 24px;
- }
+  .text {
+    color: #2e0249;
+    margin-bottom: 24px;
+  }
 
- /* tags */
+  /* tags */
 
- .tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 64px;
- }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 64px;
+  }
 
- .tag {
-  padding-block: 16px;
-  padding-inline: 26px;
-  border: 1px rgba(46, 2, 73, 0.3) solid;
-  border-radius: 8px;
- }
+  .tag {
+    padding-block: 16px;
+    padding-inline: 26px;
+    border: 1px rgba(46, 2, 73, 0.3) solid;
+    border-radius: 8px;
+  }
 
- .tag p {
-  color: rgba(46, 2, 73, 0.3);
+  .tag p {
+    color: rgba(46, 2, 73, 0.3);
+  }
 
- }
+  .select-tag {
+    background-color: #a91079;
+  }
 
- .select-tag {
-  background-color: #A91079;
- }
+  .select-tag p {
+    color: #eeeeee;
+  }
 
- .select-tag p {
-  color: #EEEEEE;
- }
+  /* Form */
 
- /* Form */
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    margin-bottom: 222px;
+  }
 
- .form {
-  display: flex;
-  flex-direction: column;
-  gap:64px;
-  margin-bottom: 222px;
- }
+  input {
+    width: 100%;
+    border: none;
+    border-bottom: 3px solid rgba(46, 2, 73, 0.3);
+    padding-block: 8px;
+    background-color: transparent;
+  }
 
- input {
-  width: 100%;
-  border: none;
-  border-bottom: 3px solid rgba(46, 2, 73, 0.3); 
-  padding-block: 8px;
-  background-color: transparent;
- }
+  input[value] {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 30px;
+    color: rgba(46, 2, 73, 0.3);
+  }
 
- input[value] {
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 30px;
-  color: rgba(46, 2, 73, 0.3);
- }
+  input:focus {
+    outline: none;
+    border-bottom-color: #a91079;
+    caret-color: #a91079;
+  }
 
- input:focus {
-  outline: none;
-  border-bottom-color: #A91079;
-  caret-color: #A91079;
- }
+  input[value]:focus {
+    color: #2e0249;
+  }
 
- input[value]:focus {
-  color: #2E0249;
- }
+  button {
+    background-color: #a91079;
+    color: #eeeeee;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    padding: 24px 64px;
+    border-radius: 16px;
+    border: none;
+  }
 
- button {
-  background-color: #A91079;
-  color: #EEEEEE;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 30px;
-  padding: 24px 64px;
-  border-radius: 16px;
-  border: none;
- }
-
- button img {
-  float: left;
-  margin-right: 16px;
- }
-
-
+  button img {
+    float: left;
+    margin-right: 16px;
+  }
 </style>
