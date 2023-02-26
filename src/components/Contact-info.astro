@@ -1,0 +1,106 @@
+---
+import Envelope from '../images/Envelope.png';
+import Phone from '../images/Phone.png';
+import Location from '../images/Location.png';
+import Facebook from '../images/facebook.png';
+import Instagram from '../images/instagram.png';
+import Twitter from '../images/Twitter.png';
+---
+
+<div class="container">
+ 
+ <h1 class="title">
+  Let's discuss <br> on something <span>cool</span> together
+</h1>
+
+<!-- contact-info -->
+
+<div class="contact-info">
+
+ <div class="mail">
+  <img src={Envelope} alt="envelope">
+  <p> SaulDesign@gmail.com</p>
+ </div>
+
+ <div class="phone">
+  <img src={Phone} alt="phone">
+  <p> +123 456 789</p>
+ </div>
+
+ <div class="location">
+  <img src={Location} alt="location">
+  <p> 123 Street 456 House</p></div>
+ </div>
+
+ <!-- contact-app -->
+
+<div class="contact-app">
+ <img src={Facebook} alt="facebook">
+ <img src={Instagram} alt="instagram">
+ <img src={Twitter} alt="twitter">
+</div>
+
+</div>
+<style>
+
+ .container {
+  /* max-width: 450px; */
+ }
+
+ .title {
+  color: #EEEEEE;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 72px;
+  margin: 0;
+  margin-bottom: 115px;
+ }
+
+ span {
+  color:#A91079;
+ }
+
+ /* contact-info */
+
+ .contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  margin-bottom: 288px;
+ }
+
+ .contact-info div {
+  display: flex;
+ }
+
+ .contact-info img {
+  margin-right: 16px;
+  padding-left: 24px;
+  object-fit: contain;
+ }
+
+ .contact-info p {
+  color: #FFFFFF;
+ }
+
+ .phone {
+  background: rgba(87, 10, 87, 0.5);
+  border: 3px solid #A91079;
+  border-radius: 16px; 
+  padding-block: 24px;
+ }
+
+ /* contact-app */
+
+ .contact-app {
+  display: flex;
+  gap: 44px;
+  padding-left: 60px;
+ }
+
+ .contact-app img {
+  object-fit: contain;
+ }
+
+
+</style>
