@@ -73,7 +73,7 @@ submitButton.addEventListener("click", async (event) => {
 
   try {
     validate();
-    // await request.rows.create(data);
+    await request.rows.create(data);
     location.reload();
   } catch (error) {
     console.log(error);
